@@ -17,7 +17,7 @@ function bb2html($bb2html, $title)
 */
 function bb2html() {
 global $cb_ref_title, $smilie_folder, $insert_link, $effin_casinos, $prevent_xss, $spammer_strings;
-$args = func_num_args(); 
+$args = func_num_args();
 $bb2html = func_get_arg(0);
 if ($args == 2) {
 	$title = func_get_arg(1);
@@ -62,14 +62,14 @@ if ($args == 2) {
 	rudimentary tag balance checking..
 	this works really well!
 	*/
-	//$removers = array("/\[\[(.*)\]\]/i","/\<hr (.*) \/\>/"); 
+	//$removers = array("/\[\[(.*)\]\]/i","/\<hr (.*) \/\>/");
 	$check_string = preg_replace("/\[\[(.*)\]\]/i","",$bb2html); // add tags that don't need closed..
 	$removers = array('[[',']]','[hr]','[hr2]','[hr3]','[hr4]','[sp]','[*]','[/*]');
 	$check_string = str_replace($removers, '', $check_string);
 	// simple counting..
 	if ( ((substr_count($check_string, "[")) != (substr_count($check_string, "]")))
 	or  ((substr_count($check_string, "[/")) != ((substr_count($check_string, "[")) / 2))
-	
+
 	// a couple of common errors (I might get around to an array for this)
 	// but these two are definitely the main culprits for tag mixing errors..
 	or  (substr_count($check_string, "[b]")) != (substr_count($check_string, "[/b]"))
@@ -271,7 +271,7 @@ if ($args == 2) {
 	$bb2html = str_replace('</h6><br />', '</h6>', $bb2html);
 
 	// oh, all right then..
-	// my [color=red]colour[/color] [color=blue]test[/color] [color=#C5BB41]test[/color]
+	// my [color=red]color[/color] [color=blue]test[/color] [color=#C5BB41]test[/color]
 	$bb2html = preg_replace('/\[color\=(.+?)\](.+?)\[\/color\]/i', "<span style=\"color:$1\">$2<!--color--></span>", $bb2html);
 
 	// common special characters (html entity encoding) ..
